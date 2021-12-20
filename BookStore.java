@@ -1,7 +1,6 @@
 import java.sql.*;
 import java.util.*;
 
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! REMEMBER TO CHANGE PASSWORD IN THE CONNECT LINES !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 public class BookStore
 {
 	// Session
@@ -18,8 +17,8 @@ public class BookStore
             System.out.println("0) Exit");
             System.out.println("1) Register new user");
             System.out.println("2) Log in");
-            System.out.println("3) Search books"); // this: output a list of everything with a number next to it, type the number to add to cart, or 0 to go back. the number you type in can do something with an array.
-            System.out.println("4) Checkout"); // just don't allow with empty cart
+            System.out.println("3) Search books");
+            System.out.println("4) Checkout");
             System.out.println("5) Add new book");
             System.out.println("6) Remove book");
             System.out.println("7) View reports");
