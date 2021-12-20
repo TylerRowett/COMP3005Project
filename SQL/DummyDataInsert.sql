@@ -1,0 +1,22 @@
+delete from program_user;
+delete from publisher_phone;
+delete from order_book;
+delete from book_author;
+delete from placed_order;
+delete from book;
+delete from publisher;
+
+insert into publisher values('A Publishing', '123 Fake St', 'Ontario', 'A1A2B2', 'example@email.com', '123456789012');
+insert into publisher values('B Publishing', '123 Fake St', 'Ontario', 'A1A2B2', 'example@email.com', '123456789012');
+insert into publisher values('C Publishing', '123 Fake St', 'Ontario', 'A1A2B2', 'example@email.com', '123456789012');
+insert into publisher_phone values('A Publishing', '1234567890');
+insert into publisher_phone values('B Publishing', '1234567891');
+insert into publisher_phone values('C Publishing', '1234567892');
+insert into book values('1234567890123', 'A Publishing', 'Harry Potter', 'Fantasy', '200', '15', '10', '20');
+insert into book values('1234567890124', 'B Publishing', 'Potter Harry', 'Fantasy', '200', '15', '10', '20');
+insert into book values('1234567890125', 'B Publishing', 'Dune', 'Science Fiction', '200', '15', '10', '20');
+insert into book values('1234567890126', 'C Publishing', 'Rune', 'Science Fiction', '200', '15', '10', '20');
+insert into book_author values('1234567890123', 'J. K.', 'Rowling');
+insert into book_author values('1234567890124', 'K. J.', 'Lowring');
+insert into book_author values('1234567890125', 'Frank', 'Herbert');
+insert into book_author values('1234567890126', 'Hrank', 'Ferbert');
