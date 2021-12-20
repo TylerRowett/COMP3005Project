@@ -76,13 +76,14 @@ public class BookStore
 						 search(5);
 						 break;
 					 } else {
-					     System.out.println("ya missed");
+					     System.out.println("not an option");
 					     continue;
 					 }
 				}
 						
             } else if (inp.equals("4")) {
             	// Checkout
+            	checkOut();
             	
             } else if (inp.equals("5")) {
             	// Add new book
@@ -92,15 +93,65 @@ public class BookStore
             	// Remove book
             	removeBook();
             	
-            } else if (inp.equals("7")) {
-            	// View reports
-            	
 			} else {
-			    System.out.println("ya missed");
+			    System.out.println("not an option");
 			    continue;
 			}
         }
     } 
+    
+    static void checkOut() {
+    	if (!role.equals("Customer")) {
+    		System.out.println(role);
+    		System.out.println("You need to be logged in as a customer");
+    		return;
+    	}
+    	
+    	Scanner inpObj = new Scanner(System.in);
+        System.out.println("Enter first name");
+        String fname = inpObj.nextLine();
+        System.out.println("Enter last name");
+        String lname = inpObj.nextLine();
+        System.out.println("Enter credit card number");
+        String card = inpObj.nextLine();
+        System.out.println("Enter billing address street");
+        String bstreet = inpObj.nextLine();
+        System.out.println("Enter billing address city");
+        String bcity = inpObj.nextLine();
+        System.out.println("Enter billing address province");
+        String bprovince = inpObj.nextLine();
+        System.out.println("Enter billing address postal code");
+        String bpostal = inpObj.nextLine();
+        System.out.println("Enter shipping address street");
+        String sstreet = inpObj.nextLine();
+        System.out.println("Enter shipping address city");
+        String scity = inpObj.nextLine();
+        System.out.println("Enter shiping address province");
+        String sprovince = inpObj.nextLine();
+        System.out.println("Enter shipping address postal code");
+        String spostal = inpObj.nextLine();
+
+        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/project", "postgres", "postgres" )){
+            // Query
+            PreparedStatement pStmt = connection.prepareStatement("insert into placed_order (user_id, first_name, last_name, billing_street, billing_city, billing_province, billing_postal, shipping_street, shipping_city, shipping_province, shipping_postal, date_placed) values(?,?,?,?,?,?,?,?,?,?,?,?)");
+            pStmt.setString(1, user_id);
+            pStmt.setString(2, fname);
+            pStmt.setString(3, lname);
+            pStmt.setString(4, bstreet);
+            pStmt.setString(5, bcity);
+            pStmt.setString(6, bprovince);
+            pStmt.setString(7, bpostal);
+            pStmt.setString(8, sstreet);
+            pStmt.setString(9, scity);
+            pStmt.setString(10, sprovince);
+            pStmt.setString(11, spostal);
+            pStmt.setString(12, "2021-12-20");
+            pStmt.executeUpdate();
+            
+        } catch (Exception sqle) {
+            System.out.println(sqle);
+        }
+    }
     
     static void removeBook() {
     	if (!role.equals("Manager")) {
