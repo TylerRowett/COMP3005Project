@@ -90,6 +90,7 @@ public class BookStore
             	
             } else if (inp.equals("6")) {
             	// Remove book
+            	removeBook();
             	
             } else if (inp.equals("7")) {
             	// View reports
@@ -100,6 +101,32 @@ public class BookStore
 			}
         }
     } 
+    
+    static void removeBook() {
+    	if (!role.equals("Manager")) {
+    		System.out.println(role);
+    		System.out.println("You need to be logged in as a manager");
+    		return;
+    	}
+    	
+    	Scanner inpObj = new Scanner(System.in);
+        System.out.println("Enter ISBN");
+        String ISBN = inpObj.nextLine();
+        
+        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/project", "postgres", "postgres" )){
+            // Query
+        	PreparedStatement pStmt = connection.prepareStatement("delete from book_author where isbn=?::NUMERIC");
+            pStmt.setString(1, ISBN);
+            pStmt.executeUpdate();
+        	
+            pStmt = connection.prepareStatement("delete from book where isbn=?::NUMERIC");
+            pStmt.setString(1, ISBN);
+            pStmt.executeUpdate();
+            
+        } catch (Exception sqle) {
+            System.out.println(sqle);
+        }
+    }
     
     static void addBook() {
     	if (!role.equals("Manager")) {
@@ -132,7 +159,7 @@ public class BookStore
 
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/project", "postgres", "postgres" )){
             // Query
-            PreparedStatement pStmt = connection.prepareStatement("insert into book (ISBN, publisher_name, title, genre, num_pages, price, publisher_sales_percent, stock) values(?::NUMERIC,?,?,?,?::NUMERIC,?::NUMERIC,?::NUMERIC,?::NUMERIC)");
+            PreparedStatement pStmt = connection.prepareStatement("insert into book (isbn, publisher_name, title, genre, num_pages, price, publisher_sales_percent, stock) values(?::NUMERIC,?,?,?,?::NUMERIC,?::NUMERIC,?::NUMERIC,?::NUMERIC)");
             pStmt.setString(1, ISBN);
             pStmt.setString(2, pname);
             pStmt.setString(3, title);
